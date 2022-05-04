@@ -1,16 +1,16 @@
 # MySQL_Script
 ### MySQL scripts to retrieve different data from MySQL database
 #### Question 1: 
-Given a table of rental property searches by users. The table consists of search results and outputs host information for searchers. Find the minimum, average, maximum rental prices for each host’s popularity rating. The host’s popularity rating is defined as below:
-    0 reviews: New
-    1 to 5 reviews: Rising
-    6 to 15 reviews: Trending Up
-    16 to 40 reviews: Popular
-    More than 40 reviews: Hot
+Given a table of rental property searches by users. The table consists of search results and outputs host information for searchers. Find the minimum, average, maximum rental prices for each host’s popularity rating. The host’s popularity rating is defined as below: <br>
+    0 reviews: New <br>
+    1 to 5 reviews: Rising <br>
+    6 to 15 reviews: Trending Up <br>
+    16 to 40 reviews: Popular <br>
+    More than 40 reviews: Hot <br>
 
-###### Solution: 
-Step 1: Create new host_id by combining price, room_type, host_since, zipcode, and number_of_reviews.
-Step 2: Use CASE WHEN to make scenarios and aggregate data using MIN, AVG, MAX
+###### Solution: <br>
+Step 1: Create new host_id by combining price, room_type, host_since, zipcode, and number_of_reviews.<br>
+Step 2: Use CASE WHEN to make scenarios and aggregate data using MIN, AVG, MAX <br>
 
 ``
 WITH T1 AS (
@@ -32,9 +32,9 @@ GROUP BY rtype``
 #### Question 2: 
 Find the customer with the highest daily total order cost between 2019-02-01 to 2019-05-01. If customer had more than one order on a certain day, sum the order costs on daily basis. Output customer's first name, total cost of their items, and the date.
 
-###### Solution:
-Step 1: JOIN two tables using common key, clarify the desired period in WHERE clause
-Step 2: In the HAVING clause, filter down to the highest daily total cost by letting the SUM of total order cost equal the MAX of total order cost
+###### Solution: <br>
+Step 1: JOIN two tables using common key, clarify the desired period in WHERE clause <br>
+Step 2: In the HAVING clause, filter down to the highest daily total cost by letting the SUM of total order cost equal the MAX of total order cost <br>
 
 ``
 SELECT first_name,
