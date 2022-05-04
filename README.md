@@ -17,7 +17,9 @@ WITH T1 AS (
     SELECT CONCAT(price,room_type,host_since,zipcode,number_of_reviews) AS host_id,
     number_of_reviews,price
     FROM airbnb_host_searches
-    GROUP BY 1,2,3)
+    GROUP BY 1,2,3)``
+   
+``
 SELECT (CASE WHEN number_of_reviews = 0 THEN 'new'
         WHEN number_of_reviews BETWEEN 1 AND 5 THEN 'rising'
         WHEN number_of_reviews BETWEEN 6 AND 15 THEN 'trending up'
@@ -63,7 +65,9 @@ Step 2: RANK the CTE table ORDER BY star_count WHERE rank <= 5
 WITH T1 AS (SELECT state,COUNT(stars) as star_count
 FROM yelp_business
 WHERE stars = 5
-GROUP BY state)
+GROUP BY state)``
+
+``
 SELECT state,star_count
 FROM (SELECT *, RANK () OVER (ORDER BY star_count DESC) AS rnk
         FROM T1) a
@@ -82,7 +86,9 @@ WITH T1 AS
     (SELECT DATE_FORMAT(created_at, '%Y-%m') AS date, 
     SUM(value) AS revenue
 FROM sf_transactions
-GROUP BY date)
+GROUP BY date)``
+
+``
 SELECT date, 
     ROUND(((revenue - prev_revenue) / prev_revenue)*100, 2) AS revenue_diff_pct
 FROM
