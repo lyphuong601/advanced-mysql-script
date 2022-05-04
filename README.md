@@ -34,22 +34,16 @@ Find the customer with the highest daily total order cost between 2019-02-01 to 
 Step 1: JOIN two tables using common key, clarify the desired period in WHERE clause <br>
 Step 2: In the HAVING clause, filter down to the highest daily total cost by letting the SUM of total order cost equal the MAX of total order cost <br>
 
-        SELECT first_name,
-               sum(total_order_cost) AS total_order_cost,
-               order_date
+        SELECT first_name, sum(total_order_cost) AS total_order_cost, order_date
         FROM orders o
         LEFT JOIN customers c ON o.cust_id = c.id
         WHERE order_date BETWEEN '2019-02-1' AND '2019-05-1'
-        GROUP BY first_name,
-                 order_date
-        HAVING SUM(total_order_cost) =
-          (SELECT MAX(total_order_cost)
-           FROM
-             (SELECT SUM(total_order_cost) AS total_order_cost
-              FROM orders
-              WHERE order_date BETWEEN '2019-02-1' AND '2019-05-1'
-              GROUP BY cust_id,
-                       order_date) b)
+        GROUP BY first_name,order_date
+        HAVING SUM(total_order_cost) = (SELECT MAX(total_order_cost)
+                                         FROM (SELECT SUM(total_order_cost) AS total_order_cost
+                                              FROM orders
+                                              WHERE order_date BETWEEN '2019-02-1' AND '2019-05-1'
+                                              GROUP BY cust_id, order_date) b)
 
 #### Question 3: 
 Find the top 5 states with the most 5-star businesses. Output the state name along with the number of 5-star businesses and order records by the number of 5-star businesses in descending order. In case there are ties in the number of businesses, return all the unique states. If two states have the same result, sort them in alphabetical order.
@@ -76,14 +70,10 @@ Given a table of purchases by date, calculate the month-over-month percentage ch
 Step 1: SUM revenue by month <br>
 Step 2: Calculate percentage change using LAG <br>
 
-        WITH T1 AS 
-            (SELECT DATE_FORMAT(created_at, '%Y-%m') AS date, 
-            SUM(value) AS revenue
-        FROM sf_transactions
-        GROUP BY date)
+        WITH T1 AS (SELECT DATE_FORMAT(created_at, '%Y-%m') AS date, SUM(value) AS revenue
+                    FROM sf_transactions
+                    GROUP BY date)
         
-        SELECT date, 
-            ROUND(((revenue - prev_revenue) / prev_revenue)*100, 2) AS revenue_diff_pct
-        FROM
-            (SELECT date, revenue, LAG(revenue, 1) over(ORDER BY date) AS prev_revenue
-            FROM T1) sub_1;
+        SELECT date, ROUND(((revenue - prev_revenue) / prev_revenue)*100, 2) AS revenue_diff_pct
+        FROM (SELECT date, revenue, LAG(revenue, 1) over(ORDER BY date) AS prev_revenue
+              FROM T1) sub_1;
