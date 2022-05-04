@@ -57,9 +57,9 @@ HAVING SUM(total_order_cost) =
 #### Question 3: 
 Find the top 5 states with the most 5-star businesses. Output the state name along with the number of 5-star businesses and order records by the number of 5-star businesses in descending order. In case there are ties in the number of businesses, return all the unique states. If two states have the same result, sort them in alphabetical order.
 
-###### Solution: 
-Step 1: Create a CTE table to count number of 5-star restaurants in each state
-Step 2: RANK the CTE table ORDER BY star_count WHERE rank <= 5
+###### Solution: <br>
+Step 1: Create a CTE table to count number of 5-star restaurants in each state <br>
+Step 2: RANK the CTE table ORDER BY star_count WHERE rank <= 5 <br>
 
 ``
 WITH T1 AS (SELECT state,COUNT(stars) as star_count
@@ -77,9 +77,9 @@ ORDER BY star_count DESC,state ASC;``
 #### Question 4: 
 Given a table of purchases by date, calculate the month-over-month percentage change in revenue. The output should include the year-month date (YYYY-MM) and percentage change, rounded to the 2nd decimal point, and sorted from the beginning of the year to the end of the year.
 
-###### Solution:
-Step 1: SUM revenue by month
-Step 2: Calculate percentage change using LAG
+###### Solution: <br>
+Step 1: SUM revenue by month <br>
+Step 2: Calculate percentage change using LAG <br>
 
 ``
 WITH T1 AS 
