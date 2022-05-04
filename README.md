@@ -17,7 +17,6 @@ WITH T1 AS (
     number_of_reviews,price
     FROM airbnb_host_searches
     GROUP BY 1,2,3)
-
 SELECT (CASE WHEN number_of_reviews = 0 THEN 'new'
         WHEN number_of_reviews BETWEEN 1 AND 5 THEN 'rising'
         WHEN number_of_reviews BETWEEN 6 AND 15 THEN 'trending up'
@@ -25,7 +24,7 @@ SELECT (CASE WHEN number_of_reviews = 0 THEN 'new'
         WHEN number_of_reviews > 40 THEN 'hot' END) AS rtype,
         MIN(price),AVG(price),MAX(price)
 FROM T1
-GROUP BY rtype````
+GROUP BY rtype``
 
 Question 2: Find the customer with the highest daily total order cost between 2019-02-01 to 2019-05-01. If customer had more than one order on a certain day, sum the order costs on daily basis. Output customer's first name, total cost of their items, and the date.
 
@@ -62,7 +61,6 @@ WITH T1 AS (SELECT state,COUNT(stars) as star_count
 FROM yelp_business
 WHERE stars = 5
 GROUP BY state)
-
 SELECT state,star_count
 FROM (SELECT *, RANK () OVER (ORDER BY star_count DESC) AS rnk
         FROM T1) a
@@ -81,7 +79,6 @@ WITH T1 AS
     SUM(value) AS revenue
 FROM sf_transactions
 GROUP BY date)
-
 SELECT date, 
     ROUND(((revenue - prev_revenue) / prev_revenue)*100, 2) AS revenue_diff_pct
 FROM
