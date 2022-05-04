@@ -25,7 +25,7 @@ SELECT (CASE WHEN number_of_reviews = 0 THEN 'new'
         WHEN number_of_reviews > 40 THEN 'hot' END) AS rtype,
         MIN(price),AVG(price),MAX(price)
 FROM T1
-GROUP BY rtype;``
+GROUP BY rtype````
 
 Question 2: Find the customer with the highest daily total order cost between 2019-02-01 to 2019-05-01. If customer had more than one order on a certain day, sum the order costs on daily basis. Output customer's first name, total cost of their items, and the date.
 
