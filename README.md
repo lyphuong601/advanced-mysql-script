@@ -1,13 +1,14 @@
 # MySQL_Script
-MySQL scripts to retrieve different data from MySQL database
-Question 1: Given a table of rental property searches by users. The table consists of search results and outputs host information for searchers. Find the minimum, average, maximum rental prices for each host’s popularity rating. The host’s popularity rating is defined as below:
+##MySQL scripts to retrieve different data from MySQL database
+###Question 1: 
+Given a table of rental property searches by users. The table consists of search results and outputs host information for searchers. Find the minimum, average, maximum rental prices for each host’s popularity rating. The host’s popularity rating is defined as below:
     0 reviews: New
     1 to 5 reviews: Rising
     6 to 15 reviews: Trending Up
     16 to 40 reviews: Popular
     More than 40 reviews: Hot
 
-Solution: 
+###Solution: 
 Step 1: Create new host_id by combining price, room_type, host_since, zipcode, and number_of_reviews.
 Step 2: Use CASE WHEN to make scenarios and aggregate data using MIN, AVG, MAX
 
@@ -26,9 +27,10 @@ SELECT (CASE WHEN number_of_reviews = 0 THEN 'new'
 FROM T1
 GROUP BY rtype``
 
-Question 2: Find the customer with the highest daily total order cost between 2019-02-01 to 2019-05-01. If customer had more than one order on a certain day, sum the order costs on daily basis. Output customer's first name, total cost of their items, and the date.
+##Question 2: 
+Find the customer with the highest daily total order cost between 2019-02-01 to 2019-05-01. If customer had more than one order on a certain day, sum the order costs on daily basis. Output customer's first name, total cost of their items, and the date.
 
-Solution:
+###Solution:
 Step 1: JOIN two tables using common key, clarify the desired period in WHERE clause
 Step 2: In the HAVING clause, filter down to the highest daily total cost by letting the SUM of total order cost equal the MAX of total order cost
 
@@ -50,9 +52,10 @@ HAVING SUM(total_order_cost) =
       GROUP BY cust_id,
                order_date) b)``
 
-Question 3: Find the top 5 states with the most 5-star businesses. Output the state name along with the number of 5-star businesses and order records by the number of 5-star businesses in descending order. In case there are ties in the number of businesses, return all the unique states. If two states have the same result, sort them in alphabetical order.
+##Question 3: 
+Find the top 5 states with the most 5-star businesses. Output the state name along with the number of 5-star businesses and order records by the number of 5-star businesses in descending order. In case there are ties in the number of businesses, return all the unique states. If two states have the same result, sort them in alphabetical order.
 
-Solution: 
+###Solution: 
 Step 1: Create a CTE table to count number of 5-star restaurants in each state
 Step 2: RANK the CTE table ORDER BY star_count WHERE rank <= 5
 
@@ -67,9 +70,10 @@ FROM (SELECT *, RANK () OVER (ORDER BY star_count DESC) AS rnk
 WHERE rnk <= 5
 ORDER BY star_count DESC,state ASC;``
 
-Question 4: Given a table of purchases by date, calculate the month-over-month percentage change in revenue. The output should include the year-month date (YYYY-MM) and percentage change, rounded to the 2nd decimal point, and sorted from the beginning of the year to the end of the year.
+##Question 4: 
+Given a table of purchases by date, calculate the month-over-month percentage change in revenue. The output should include the year-month date (YYYY-MM) and percentage change, rounded to the 2nd decimal point, and sorted from the beginning of the year to the end of the year.
 
-Solution:
+###Solution:
 Step 1: SUM revenue by month
 Step 2: Calculate percentage change using LAG
 
