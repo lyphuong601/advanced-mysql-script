@@ -20,13 +20,13 @@ WITH T1 AS (
     GROUP BY 1,2,3)``
    
 ``
-SELECT (CASE WHEN number_of_reviews = 0 THEN 'new'
-        WHEN number_of_reviews BETWEEN 1 AND 5 THEN 'rising'
-        WHEN number_of_reviews BETWEEN 6 AND 15 THEN 'trending up'
-        WHEN number_of_reviews BETWEEN 16 AND 40 THEN 'popular'
-        WHEN number_of_reviews > 40 THEN 'hot' END) AS rtype,
-        MIN(price),AVG(price),MAX(price)
-FROM T1
+SELECT (CASE WHEN number_of_reviews = 0 THEN 'new' \
+        WHEN number_of_reviews BETWEEN 1 AND 5 THEN 'rising' \
+        WHEN number_of_reviews BETWEEN 6 AND 15 THEN 'trending up' \
+        WHEN number_of_reviews BETWEEN 16 AND 40 THEN 'popular' \
+        WHEN number_of_reviews > 40 THEN 'hot' END) AS rtype, \
+        MIN(price),AVG(price),MAX(price) \
+FROM T1 \
 GROUP BY rtype``
 
 #### Question 2: 
